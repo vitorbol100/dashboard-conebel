@@ -1,0 +1,63 @@
+/* ============================================================
+   TOKENS — variáveis de tema
+   ============================================================ */
+:root {
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, .28);
+  --transition: .18s ease;
+}
+
+/* ---------- Tema 1: Deep Tech (padrão) ---------- */
+[data-dashboard-theme="deep-tech"] {
+  --accent: #00D4FF;
+  --accent-sec: #7B61FF;
+  --app-bg: #0b1013;
+  --card-bg: #161f24;
+  --card-border: rgba(255, 255, 255, .07);
+  --c-pos: #34d399;
+  --c-warn: #ffbd4a;
+  --c-neg: #ff7a85;
+  --t-main: #ffffff;
+  --t-sec: #8b949e;
+}
+
+/* ---------- Tema 2: Conebel Corporate ---------- */
+[data-dashboard-theme="corporate"] {
+  --accent: #1E6BFF;
+  --accent-sec: #FFC300;
+  --app-bg: #0B1220;
+  --card-bg: #16203A;
+  --card-border: rgba(255, 255, 255, .08);
+  --c-pos: #22C55E;
+  --c-warn: #F59E0B;
+  --c-neg: #EF4444;
+  --t-main: #F5F7FA;
+  --t-sec: #94A3B8;
+}
+
+/* ---------- Tema 3: Glass Premium ---------- */
+[data-dashboard-theme="glass"] {
+  --accent: #00D4FF;
+  --accent-sec: #7B61FF;
+  --app-bg: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  --card-bg: rgba(255, 255, 255, .06);
+  --card-border: rgba(255, 255, 255, .14);
+  --c-pos: #34D399;
+  --c-warn: #FBBF24;
+  --c-neg: #FB7185;
+  --t-main: #F8FAFC;
+  --t-sec: #A1A9BC;
+}

@@ -1,0 +1,31 @@
+/* ============================================================
+   PRINT — impressão / PDF
+   ============================================================ */
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+
+  body {
+    background: #0A0E1A !important;
+    color: #E8ECF5 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .theme-selector,
+  .upload-zone,
+  .exec-actions,
+  .add-btn,
+  .card-controls,
+  .edit-drawer,
+  .drawer-backdrop,
+  .toast-stack,
+  .dlg { display: none !important; }
+
+  .exec-wrapper { max-width: none; padding: 0; gap: 12px; }
+
+  .glass-card { break-inside: avoid; page-break-inside: avoid; }
+
+  .kpi-grid, .charts-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  [contenteditable]:focus { outline: none; }
+}

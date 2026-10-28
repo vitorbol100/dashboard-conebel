@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark" data-dashboard-theme="deep-tech">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Conebel — Fluxo de Caixa Executivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+
+<div class="exec-wrapper">
+
+  <!-- ============ HEADER ============ -->
+  <header class="exec-header">
+    <div class="exec-header-main">
+      <h1 class="exec-title" id="execTitle" contenteditable="true">Fluxo de Caixa — Indicadores do Mês</h1>
+      <p class="exec-company" id="execCompany" contenteditable="true">CONEBEL • Distribuidora Ambev</p>
+      <div class="exec-pills">
+        <span class="pill" id="execTag1" contenteditable="true">DIRETORIA EXECUTIVA</span>
+        <span class="pill pill-accent" id="currentThemeTag">DEEP TECH</span>
+      </div>
+    </div>
+    <div class="exec-actions">
+      <button class="btn btn-secondary" id="btnToggleEditMode">
+        <span id="btnEditLabel">Editar</span>
+      </button>
+      <button class="btn btn-outline" id="btnOpenThemeColors">Cores do Tema</button>
+      <button class="btn btn-outline" id="btnResetAll">Restaurar Padrão</button>
+      <button class="btn btn-outline" id="btnExportPNG">Exportar PNG</button>
+      <button class="btn btn-primary" id="btnPrint">Imprimir / PDF</button>
+    </div>
+  </header>
+
+  <!-- ============ UPLOAD ============ -->
+  <section class="upload-zone" id="dropZone">
+    <div class="upload-info">
+      <span class="upload-status-badge" id="uploadStatusBadge">Aguardando arquivo</span>
+      <p class="upload-file" id="loadedFileName">Nenhum arquivo carregado</p>
+      <p class="upload-sub" id="uploadSubText">Arraste a planilha ou selecione um arquivo</p>
+    </div>
+    <div class="upload-actions">
+      <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+      <button class="btn btn-primary" id="btnSelectFile">
+        <span id="btnSelectFileLabel">Selecionar arquivo (.xlsx / .csv)</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ TEMAS ============ -->
+  <section class="theme-selector">
+    <span class="theme-label">Tema</span>
+    <div class="theme-options" role="radiogroup" aria-label="Seleção de tema">
+      <button class="theme-btn active" data-set-theme="deep-tech" role="radio" aria-checked="true">Deep Tech</button>
+      <button class="theme-btn" data-set-theme="corporate" role="radio" aria-checked="false">Conebel Corporate</button>
+      <button class="theme-btn" data-set-theme="glass" role="radio" aria-checked="false">Glass Premium</button>
+    </div>
+  </section>
+
+  <!-- ============ BLOCO 1 — KPIs ============ -->
+  <section class="block">
+    <div class="block-head">
+      <h2 class="block-title">Indicadores Financeiros e Operacionais (Cards)</h2>
+      <span class="badge badge-outline" id="kpisCountBadge">11 Indicadores</span>
+    </div>
+    <div class="kpi-grid" id="kpisContainer"></div>
+    <button class="btn btn-outline add-btn" id="btnAddKpiCard">+ Adicionar Novo Card de Indicador</button>
+  </section>
+
+  <!-- ============ BLOCO 2 — GRÁFICOS ============ -->
+  <section class="block">
+    <div class="block-head">
+      <h2 class="block-title">Gráficos Analíticos e Evolução Temporal</h2>
+      <span class="badge badge-outline" id="chartsCountBadge">7 Gráficos</span>
+    </div>
+    <div class="charts-grid" id="chartsContainer"></div>
+    <button class="btn btn-outline add-btn" id="btnAddChart">+ Adicionar Gráfico Customizado</button>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="exec-footer">
+    <div class="footer-left">
+      <span class="status-dot"></span>
+      <span id="footerUpdateText" contenteditable="true">Atualizado em 23/10/2026 às 18:50</span>
+    </div>
+    <div class="footer-right">
+      <span id="footerSourceText" contenteditable="true">Fonte: Planilha de Fluxo de Caixa — Conebel</span>
+      <span id="footerCompanyText" contenteditable="true">Distribuição Ambev Brasil • Apresentação de Resultados</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============ DRAWER DE EDIÇÃO ============ -->
+<aside class="edit-drawer" id="editDrawer" aria-hidden="true">
+  <header class="drawer-head">
+    <h3 id="drawerItemTitle">Editar</h3>
+    <button class="btn btn-ghost btn-icon" id="btnDrawerClose" aria-label="Fechar">✕</button>
+  </header>
+  <div class="drawer-body" id="drawerBody"></div>
+  <footer class="drawer-foot">
+    <button class="btn btn-primary" id="btnDrawerSave">Salvar alterações</button>
+  </footer>
+</aside>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+<!-- ============ DIALOG DE CORES ============ -->
+<dialog class="dlg" id="dlgThemeColors">
+  <form method="dialog" class="dlg-form">
+    <h3 class="dlg-title">Cores do Tema</h3>
+    <div class="dlg-grid">
+      <label>Fundo da Página <input type="color" id="tcBg"></label>
+      <label>Fundo dos Cards <input type="color" id="tcCardBg"></label>
+      <label>Cor Primária / Acento <input type="color" id="tcAccent"></label>
+      <label>Cor Secundária <input type="color" id="tcAccentSec"></label>
+      <label>Positivo <input type="color" id="tcPos"></label>
+      <label>Atenção / Âmbar <input type="color" id="tcWarn"></label>
+      <label>Negativo <input type="color" id="tcNeg"></label>
+      <label>Texto Principal <input type="color" id="tcTextMain"></label>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-outline" id="btnResetThemeColors">Restaurar cores</button>
+      <button type="button" class="btn btn-primary" id="btnCloseThemeColors">Fechar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ============ TOASTS ============ -->
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<!-- ============ VENDOR ============ -->
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="vendor/html2canvas.min.js"></script>
+
+<!-- ============ CONFIG ============ -->
+<script src="js/config/constants.js"></script>
+<script src="js/config/default-state.js"></script>
+
+<!-- ============ CORE ============ -->
+<script src="js/core/format.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/core/dom.js"></script>
+
+<!-- ============ UI ============ -->
+<script src="js/ui/toast.js"></script>
+<script src="js/ui/drawer.js"></script>
+<script src="js/ui/theme.js"></script>
+
+<!-- ============ CHARTS ============ -->
+<script src="js/charts/svg.js"></script>
+<script src="js/charts/engines.js"></script>
+
+<!-- ============ RENDER ============ -->
+<script src="js/render/kpis.js"></script>
+<script src="js/render/charts.js"></script>
+<script src="js/render/header-footer.js"></script>
+
+<!-- ============ DATA ============ -->
+<script src="js/data/sheet-parser.js"></script>
+<script src="js/data/file-reader.js"></script>
+
+<!-- ============ ACTIONS ============ -->
+<script src="js/actions/edit-mode.js"></script>
+<script src="js/actions/card-actions.js"></script>
+<script src="js/actions/export.js"></script>
+<script src="js/actions/reset.js"></script>
+
+<!-- ============ BOOT ============ -->
+<script src="js/main.js"></script>
+</body>
+</html>

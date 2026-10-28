@@ -1,0 +1,69 @@
+/* ============================================================
+   BASE — reset, tipografia, layout
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--t-main);
+  background: var(--app-bg);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 600; }
+p { margin: 0; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; font-size: inherit; }
+
+.exec-wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.block { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.block-title {
+  font-size: 15px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--t-sec);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.add-btn { align-self: flex-start; }
+
+@media (max-width: 900px) {
+  .kpi-grid, .charts-grid { grid-template-columns: 1fr; }
+  .exec-wrapper { padding: var(--space-4); }
+}
